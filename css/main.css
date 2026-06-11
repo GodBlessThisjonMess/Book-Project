@@ -1,0 +1,433 @@
+
+
+:root {
+    --bg-primary: #FFF0E4;              
+    --bg-secondary: #FFF8F3;             
+    --bg-card: #FFFFFF;                  
+    --border-color: rgba(0, 121, 121, 0.12); 
+    --text-primary: #1e293b;             
+    --text-secondary: #64748b;           
+    
+    --primary: #007979;                  
+    --primary-hover: #005c5c;            
+    
+    --success: #0f766e;                  
+    --warning: #b45309;                  
+    --danger: #be123c;                   
+    --info: #0369a1;                     
+    
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --shadow: 0 10px 30px 0 rgba(0, 121, 121, 0.05); 
+    --radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Pembungkus Aplikasi */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Navigasi Samping (Sidebar) */
+.sidebar {
+    width: 260px;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.brand-icon {
+    font-size: 24px;
+    color: var(--primary); 
+}
+
+.brand-name {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #009696, #007979); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 15px;
+    transition: var(--transition);
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: rgba(0, 121, 121, 0.08); 
+    color: var(--primary);
+}
+
+.menu-icon {
+    font-size: 18px;
+}
+
+
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.top-bar {
+    height: 70px;
+    background-color: rgba(255, 240, 228, 0.8); 
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+.page-title h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary); 
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    font-size: 32px;
+    color: var(--primary);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.user-role {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.content-body {
+    padding: 40px;
+    flex: 1;
+}
+
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 121, 121, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 121, 121, 0.08);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.stat-icon.not-read { background: rgba(100, 116, 139, 0.1); color: #64748b; }
+.stat-icon.ongoing { background: rgba(0, 121, 121, 0.1); color: var(--primary); }
+.stat-icon.done { background: rgba(15, 118, 110, 0.1); color: var(--success); }
+.stat-icon.unfinished { background: rgba(190, 18, 60, 0.1); color: var(--danger); }
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 4px;
+    color: var(--text-primary);
+}
+
+/* TOMBOL MODEREN */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 8px 20px rgba(0, 121, 121, 0.25);
+}
+
+/* MODAL INTERAKTIF KONFIRMASI HARIAN */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(30, 41, 59, 0.35); /* Overlay gelap-hangat tipis */
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 480px;
+    padding: 32px;
+    box-shadow: 0 20px 50px rgba(0, 121, 121, 0.1);
+    text-align: center;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-icon {
+    font-size: 40px;
+    color: var(--warning);
+    margin-bottom: 20px;
+}
+
+.modal h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.modal p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.btn-yes {
+    background: var(--success);
+    color: white;
+    padding: 12px 28px;
+    border-radius: var(--radius);
+}
+
+.btn-yes:hover {
+    background: #0d5c56;
+    box-shadow: 0 8px 20px rgba(15, 118, 110, 0.25);
+}
+
+.btn-no {
+    background: var(--danger);
+    color: white;
+    padding: 12px 28px;
+    border-radius: var(--radius);
+}
+
+.btn-no:hover {
+    background: #9f1239;
+    box-shadow: 0 8px 20px rgba(190, 18, 60, 0.25);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+    .brand-name, .menu-item span, .user-info {
+        display: none;
+    }
+    .main-content {
+        margin-left: 70px;
+    }
+    .top-bar {
+        padding: 0 20px;
+    }
+    .content-body {
+        padding: 20px;
+    }
+}
+
+/* 3D BOOK COVER EFFECT */
+.book-cover-wrapper {
+    width: 100%;
+    height: 180px;
+    border-radius: 6px 12px 12px 6px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    color: #ffffff;
+    box-shadow: 5px 8px 18px rgba(0, 0, 0, 0.12), 
+                inset 1px 1px 0px rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+    margin-bottom: 16px;
+    transition: var(--transition);
+    transform-style: preserve-3d;
+    perspective: 800px;
+}
+
+.book-cover-wrapper:hover {
+    transform: rotateY(-8deg) translateY(-4px) scale(1.02);
+    box-shadow: 8px 15px 25px rgba(0, 121, 121, 0.15);
+}
+
+/* Spine Shadow (Memberikan kedalaman seperti buku asli) */
+.book-spine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 100%;
+    background: linear-gradient(to right, 
+        rgba(0, 0, 0, 0.25) 0%, 
+        rgba(0, 0, 0, 0.08) 25%, 
+        rgba(255, 255, 255, 0.1) 60%, 
+        rgba(0, 0, 0, 0) 100%);
+    border-radius: 6px 0 0 6px;
+}
+
+.book-cover-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding-left: 8px; /* Menggeser teks agar tidak tertimpa spine */
+    z-index: 2;
+}
+
+.book-cover-title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.35);
+    font-family: 'Merriweather', Georgia, serif;
+}
+
+.book-cover-author {
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 6px;
+    margin-top: 10px;
+}

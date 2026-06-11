@@ -1,0 +1,11 @@
+{
+    "name": "personal/book-reading-tracker",
+    "description": "A personal book reading tracker with MVC and Repository pattern in PHP Vanilla",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {}
+}
