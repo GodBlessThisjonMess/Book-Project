@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Arahkan request root ke folder public
+    RewriteRule ^$ public/ [L]
+    
+    # Jika file atau folder tidak ada di root secara fisik, alihkan ke public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Layanan Aplikasi Web (PHP MVC)
+  web:
+    build: .
+    container_name: book_tracker_web
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=book_tracker_db
+      - DB_USER=book_user
+      - DB_PASS=book_pass
+      - APP_URL=http://localhost:8080
+    depends_on:
+      - db
+    restart: always
+    volumes:
+      # Sinkronisasi folder uploads agar persistent secara lokal
+      - uploads_data:/var/www/html/uploads
+
+  # Layanan Database (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: book_tracker_db_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_secure_pass
+      - MYSQL_DATABASE=book_tracker_db
+      - MYSQL_USER=book_user
+      - MYSQL_PASSWORD=book_pass
+    volumes:
+      # Penyimpanan volume persistent untuk database MySQL
+      - mysql_data:/var/var/lib/mysql
+    restart: always
+
+volumes:
+  uploads_data:
+  mysql_data:
