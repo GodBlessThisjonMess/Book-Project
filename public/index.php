@@ -35,25 +35,39 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // 3. BASE_URL - Pendeteksian Dinamis untuk PHP Built-in Server dan Apache htdocs
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$host = $_SERVER['HTTP_HOST'];
+$appUrl = getenv('APP_URL') ?: ($_ENV['APP_URL'] ?? null);
+if ($appUrl) {
+    define('BASE_URL', rtrim($appUrl, '/'));
+} else {
+    // Deteksi protokol HTTPS termasuk di belakang load balancer/reverse proxy
+    $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') 
+        || ($_SERVER['SERVER_PORT'] == 443)
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+    $protocol = $isHttps ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'];
 
-// Deteksi folder dasar instalasi secara dinamis dari SCRIPT_NAME
-$scriptPath = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']); // e.g. /book-reading-tracker/public/index.php atau /book-reading-tracker/index.php
-$baseDir = dirname($scriptPath);
+    // Deteksi folder dasar instalasi secara dinamis dari SCRIPT_NAME
+    $scriptPath = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']); // e.g. /book-reading-tracker/public/index.php atau /book-reading-tracker/index.php
+    $baseDir = dirname($scriptPath);
 
-// Jika script berada di dalam folder public, potong "/public" dari akhir path
-if (substr($baseDir, -7) === '/public') {
-    $baseDir = substr($baseDir, 0, -7);
+    // Jika script berada di dalam folder public, potong "/public" dari akhir path
+    if (substr($baseDir, -7) === '/public') {
+        $baseDir = substr($baseDir, 0, -7);
+    }
+
+    // Jika script berada di dalam folder api (Vercel), potong "/api" dari akhir path
+    if (substr($baseDir, -4) === '/api') {
+        $baseDir = substr($baseDir, 0, -4);
+    }
+
+    // Normalisasi folder dasar agar kosong jika berada di root domain
+    $baseDir = rtrim($baseDir, '/\\');
+    if ($baseDir === '/' || empty($baseDir)) {
+        $baseDir = '';
+    }
+
+    define('BASE_URL', $protocol . $host . $baseDir);
 }
-
-// Normalisasi folder dasar agar kosong jika berada di root domain
-$baseDir = rtrim($baseDir, '/\\');
-if ($baseDir === '/' || empty($baseDir)) {
-    $baseDir = '';
-}
-
-define('BASE_URL', $protocol . $host . $baseDir);
 
 // 4. Router
 $router = new Router();
